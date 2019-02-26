@@ -1,0 +1,161 @@
+Script started on Wed 08 Nov 2017 09:33:34 AM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Flower.java
+//Ocean Lu
+//Zander Ilagen
+//CS 141
+//Exercise 7
+//11.08.17
+
+public class Flower {
+
+    public int leaves;
+    public int petals;
+    public String names;
+
+    public Flower() {
+        this.leaves = leaves;
+        this.petals = petals;
+        this.names = names;
+    }
+    
+    public void setLeaves(int l) {
+        leaves = l;
+    }
+    
+    public void setPetals(int p) {
+        petals = p;
+    }
+    
+    public void setNames(String n) {
+        names = n;
+    }
+    
+    public int getLeaves() {
+        return leaves;
+    }
+    
+    public int getPetals() {
+        return petals;
+    }
+    
+    public String getName() {
+        return names;
+    }
+    
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Flower.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Rose.java
+//Ocean Lu
+//Zander Ilagen
+//CS 141
+//Exercise 7
+//11.08.17
+
+public class Rose extends Flower {
+
+    public int thorns;
+
+    public Rose(int t) {
+        super();
+        thorns = t;
+    }
+
+    public void setThorns(int t) {
+        thorns = t;
+    }
+
+    public int getThorns() {
+        return thorns;
+    }
+
+    public void setNames(String n) {
+        super.setNames(n + " Rose");
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Rose.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Foxgloves.java
+//Ocean Lu
+//Zander Ilagen
+//CS 141
+//Exercise 7
+//11.08.17
+
+public class Foxgloves extends Flower{
+    public boolean poison;
+    
+    public Foxgloves (boolean p) {
+        super();
+        poison = p;
+    }
+    
+    public void setPoison(boolean p) {
+        poison = p;
+    }
+    
+    public String getPoison() {
+        if (poison) {
+            return "yes";
+        }
+        else {
+            return "no";
+        }
+    }
+    
+    public void setName(String n) {
+        super.setNames(n + " Foxglove");
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat[K[K[Kjavac Foxgloves.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat test.java
+//Ocean Lu
+//Zander Ilagen
+//CS 141
+//Exercise 7
+//11.08.17
+
+public class test {
+
+    public static void main(String[] args) {
+        Rose rose = new Rose(16);
+        Foxgloves foxglove = new Foxgloves(true);
+        Flower daisy = new Flower();
+        rose.setNames("Mary");
+        rose.setLeaves(4);
+        rose.setPetals(12);
+
+        daisy.setNames("Daisy");
+        daisy.setLeaves(15);
+        daisy.setPetals(13);
+
+        foxglove.setLeaves(11);
+        foxglove.setName("Foxy");
+        foxglove.setPetals(30);
+
+        System.out.println("Name: " + daisy.getName() + "\nLeaves: " + daisy.getLeaves() + "\nPetals: " + daisy.getPetals());
+        System.out.println("\nName: " + rose.getName() + "\nThorns: " + rose.getThorns() + "\nLeaves: " + rose.getLeaves() + "\nPetals: " + rose.getPetals());
+        System.out.println("\nName: " + foxglove.getName() + "\nPoison: " + foxglove.getPoison() + "\nLeaves: " + foxglove.getLeaves() + "\nPetals: " + foxglove.getPetals());
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac test.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m jva[K[Kava test
+Name: Daisy
+Leaves: 15
+Petals: 13
+
+Name: Mary Rose
+Thorns: 16
+Leaves: 4
+Petals: 12
+
+Name: Foxy Foxglove
+Poison: yes
+Leaves: 11
+Petals: 30
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Wed 08 Nov 2017 09:34:17 AM PST

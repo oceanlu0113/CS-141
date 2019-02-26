@@ -1,0 +1,103 @@
+Script started on Mon 06 Nov 2017 02:11:19 AM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat TaskB.java
+// Ocean Lu
+// CS14
+// Assignment 3
+// 11.06.17
+
+import java.util.ArrayList;
+
+public class TaskB {
+
+    public static void main(String[] args) {
+        System.out.println("I'm going to ask you to enter 5 names and phone numbers.");
+        ArrayList<PhoneBookEntry> book = new ArrayList<PhoneBookEntry>();
+        for (int i = 0; i < 5; i++) {
+            book.add(new PhoneBookEntry());
+            book.get(i).setName();
+            book.get(i).setPhoneNumber();
+        }
+
+        System.out.println("Here's the data you entered:");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("------------------------------\nName: " + book.get(i).getName() + "\nPhone number: " + book.get(i).getPhoneNumber());
+        }
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac TaskB.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat PhoneBookEntry.java
+// Ocean Lu
+// CS14
+// Assignment 3
+// 11.06.17
+
+import java.util.Scanner;
+
+public class PhoneBookEntry {
+
+    String name;
+    String phoneNumber;
+
+    public PhoneBookEntry() {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public PhoneBookEntry(String n, String num) {
+        name = n;
+        phoneNumber = num;
+    }
+    
+    public void setPhoneNumber() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Enter that person's phone number: ");
+        phoneNumber = keyboard.nextLine();
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setName() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Enter a person's name: ");
+        name = keyboard.nextLine();
+    }
+    public String getName() {
+        return name;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac PhoneBookEntry.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java TaskB
+I'm going to ask you to enter 5 names and phone numbers.
+Enter a person's name: Bob
+Enter that person's phone number: 2345344235
+Enter a person's name: Kevin
+Enter that person's phone number: 4352342345
+Enter a person's name: Stuart
+Enter that person's phone number: 2343544523
+Enter a person's name: Gru
+Enter that person's phone number: 3245232345
+Enter a person's name: Agnes
+Enter that person's phone number: 2344352453
+Here's the data you entered:
+------------------------------
+Name: Bob
+Phone number: 2345344235
+------------------------------
+Name: Kevin
+Phone number: 4352342345
+------------------------------
+Name: Stuart
+Phone number: 2343544523
+------------------------------
+Name: Gru
+Phone number: 3245232345
+------------------------------
+Name: Agnes
+Phone number: 2344352453
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Mon 06 Nov 2017 02:13:06 AM PST

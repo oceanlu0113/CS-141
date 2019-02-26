@@ -1,0 +1,152 @@
+Script started on Thu 05 Oct 2017 11:23:07 AM PDT
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m cat C[KMinion.java
+//Ocean Lu
+//CS 141
+//Assignment 1
+//10.11.17
+
+public class Minion {
+
+    private String Name;
+    private int Eyes;
+    private String Phrase;
+
+    public void setName(String n) {
+        Name = n;
+    }
+
+    public void setEyes(int i) {
+        Eyes = i;
+    }
+
+    public void setPhrase(String p) {
+        Phrase = p;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public int getEyes() {
+        return Eyes;
+    }
+
+    public void sayPhrase() {
+        System.out.println(Phrase);
+    }
+
+    public Minion(String name) {
+        Name = name;
+        Eyes = 2;
+    }
+}
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m javac Min[K[K[KMinion.java
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m j[Kcat Java[K[K[K[KMinionDemo.java
+//Ocean Lu
+//CS 141
+//Assignment 1
+//10.11.17
+
+public class MinionDemo {
+
+    public static void main(String[] args) {
+        Minion one = new Minion("Kevin");
+        Minion two = new Minion("Bob");
+        Minion three = new Minion("Stuart");
+
+        one.setPhrase("BANANA!");
+        two.setPhrase("BABOI!");
+        three.setPhrase("SA LA KA!");
+
+        System.out.println("The first minion is called " + one.getName() + ", and he has " + one.getEyes() + " eyes.");
+        System.out.println("The second minion is called " + two.getName() + ", and he has " + two.getEyes() + " eyes.");
+        System.out.println("The third minion is called " + three.getName() + ", and he has " + three.getEyes() + " eyes.");
+        System.out.println();
+        System.out.print(one.getName() + "'s catchphrase is: ");
+        one.sayPhrase();
+        System.out.print(two.getName() + "'s catchphrase is: ");
+        two.sayPhrase();
+        System.out.print(three.getName() + "'s catchphrase is: ");
+        three.sayPhrase();
+    }
+}
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m javac MinionDemo.java
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m Miniond[KD[K[K[K[K[K[K[Kjava Mii[KnionDemo
+The first minion is called Kevin, and he has 2 eyes.
+The second minion is called Bob, and he has 2 eyes.
+The third minion is called Stuart, and he has 2 eyes.
+
+Kevin's catchphrase is: BANANA!
+Bob's catchphrase is: BABOI!
+Stuart's catchphrase is: SA LA KA!
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m cat Circle.java
+//Ocean Lu
+//CS 141
+//Assignment 1
+//10.11.17
+
+public class Circle {
+
+    private double Radius;
+    private final double PI = 3.14159;
+
+    public Circle() {
+        Radius = 0.0;
+    }
+
+    public Circle(double r) {
+        Radius = r;
+    }
+
+    public void setRadius(double r) {
+        Radius = r;
+    }
+
+    public double getRadius() {
+        return Radius;
+    }
+
+    public double getArea() {
+        return PI * Radius * Radius;
+    }
+
+    public double getDiameter() {
+        return 2 * Radius;
+    }
+
+    public double getCircumference() {
+        return 2 * PI * Radius;
+    }
+
+}
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m cat CircleDemo.java
+//Ocean Lu
+//CS 141
+//Assignment 1
+//10.11.17
+
+import java.util.Scanner;
+
+public class CircleDemo {
+
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Please enter a radius (double): ");
+        double radius = keyboard.nextDouble();
+        Circle circ = new Circle(radius);
+        System.out.println("Area: " + circ.getArea());
+        System.out.println("Diameter: " + circ.getDiameter());
+        System.out.println("Circumference: " + circ.getCircumference());
+    }
+}
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m javac Circle.jva[K[Kava
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m javac CircleDemo.java
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m java CircleDemo
+Please enter a radius (double): 4
+Area: 50.26544
+Diameter: 8.0
+Circumference: 25.13272
+]0;oslu@abbott:~[01;32moslu@abbott[01;34m ~ $[00m exit
+exit
+
+Script done on Thu 05 Oct 2017 11:24:15 AM PDT

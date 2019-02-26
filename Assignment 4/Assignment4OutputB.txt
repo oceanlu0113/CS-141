@@ -1,0 +1,421 @@
+Script started on Sun 12 Nov 2017 11:34:23 AM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat GradedActivity.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+/**
+ * A class that holds a grade for a graded activity.
+ */
+public class GradedActivity {
+
+    private double score;  // Numeric score
+
+    /**
+     * The setScore method sets the score field.
+     *
+     * @param s The value to store in score.
+     */
+    public void setScore(double s) {
+        score = s;
+    }
+
+    /**
+     * The getScore method returns the score.
+     *
+     * @return The value stored in the score field.
+     */
+    public double getScore() {
+        return score;
+    }
+
+    /**
+     * The getGrade method returns a letter grade determined from the score
+     * field.
+     *
+     * @return The letter grade.
+     */
+    public char getGrade() {
+        char letterGrade;
+
+        if (score >= 90) {
+            letterGrade = 'A';
+        } else if (score >= 80) {
+            letterGrade = 'B';
+        } else if (score >= 70) {
+            letterGrade = 'C';
+        } else if (score >= 60) {
+            letterGrade = 'D';
+        } else {
+            letterGrade = 'F';
+        }
+
+        return letterGrade;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac GradedActivity.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat e[KEssay.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+public class Essay extends GradedActivity {
+
+    private double grammar;
+    private double spelling;
+    private double correctLength;
+    private double content;
+
+    public void setScore(double gr, double sp, double len, double cnt) {
+        grammar = gr;
+        spelling = sp;
+        correctLength = len;
+        content = cnt;
+    }
+
+    public void setGrammar(double g) {
+        grammar = g;
+    }
+
+    public void setSpelling(double s) {
+        spelling = s;
+    }
+
+    public void setCorrectLength(double c) {
+        correctLength = c;
+    }
+
+    public void setContent(double c) {
+        content = c;
+    }
+
+    public double getGrammar() {
+        return grammar;
+    }
+
+    public double getSpelling() {
+        return spelling;
+    }
+
+    public double getCorrectLength() {
+        return correctLength;
+    }
+
+    public double getScore() {
+        return grammar + spelling + correctLength + content;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Essay.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m Cours[K[K[K[K[Kcat CourseGrades.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+public class CourseGrades implements Analyzable {
+
+    private final int NUM_GRADES = 4;
+    private GradedActivity[] grades = new GradedActivity[NUM_GRADES];
+
+    public CourseGrades() {
+        this.grades = grades;
+    }
+
+    public void setLab(GradedActivity aLab) {
+        grades[0] = aLab;
+    }
+
+    public void setPassFailExam(PassFailExam aPassFailExam) {
+        grades[1] = aPassFailExam;
+    }
+
+    public void setEssay(Essay anEssay) {
+        grades[2] = anEssay;
+    }
+
+    public void setFinalExam(FinalExam aFinalExam) {
+        grades[3] = aFinalExam;
+    }
+
+    public String toString() {
+        return "Lab Grade: " + grades[0].getGrade() + "\nExam Grade: " + grades[1].getGrade() + "\nEssay Grade: " + grades[2].getGrade() + "\nFinal Exam Grade: " + 
+grades[3].getGrade();
+    }
+    
+    public double getAverage() {
+        double total = 0;
+        for (int i = 0; i < 4; i++) {
+            total += grades[i].getScore();
+        }
+        return total/4;
+    }
+    
+    public GradedActivity getHightest() {
+        double highest = grades[0].getScore();
+        int keeper = 0;
+        for (int i = 1; i < 4; i++) {
+            if (highest < grades[i].getScore()) {
+                highest = grades[i].getScore();
+                keeper = i;
+            }
+        }
+        return grades[keeper];
+    }
+    
+    public GradedActivity getLowest() {
+        double lowest = grades[0].getScore();
+        int keeper = 0;
+        for (int i = 1; i < 4; i++) {
+            if (lowest > grades[i].getScore()) {
+                lowest = grades[i].getScore();
+                keeper = i;
+            }
+        }
+        return grades[keeper];
+    }
+
+    @Override
+    public GradedActivity getHighest() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac CourseGrades.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat PassFailExam.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+/**
+ * This class determines a passing or failing grade for an exam.
+ */
+public class PassFailExam extends PassFailActivity {
+
+    private int numQuestions;  // Number of questions
+    private double pointsEach; // Points for each question
+    private int numMissed;     // Number of questions missed
+
+    /**
+     * The constructor sets the number of questions, the number of questions
+     * missed, and the minimum passing score.
+     *
+     * @param questions The number of questions.
+     * @param missed The number of questions missed.
+     * @param minPassing The minimum passing score.
+     */
+    public PassFailExam(int questions, int missed,
+            double minPassing) {
+        // Call the superclass constructor.
+        super(minPassing);
+
+        // Declare a local variable for the score.
+        double numericScore;
+
+        // Set the numQuestions and numMissed fields.
+        numQuestions = questions;
+        numMissed = missed;
+
+        // Calculate the points for each question and
+        // the numeric score for this exam.
+        pointsEach = 100.0 / questions;
+        numericScore = 100.0 - (missed * pointsEach);
+
+        // Call the superclass's setScore method to
+        // set the numeric score.
+        setScore(numericScore);
+    }
+
+    /**
+     * The getPointsEach method returns the number of points each question is
+     * worth.
+     *
+     * @return The value in the pointsEach field.
+     */
+    public double getPointsEach() {
+        return pointsEach;
+    }
+
+    /**
+     * The getNumMissed method returns the number of questions missed.
+     *
+     * @return The value in the numMissed field.
+     */
+    public int getNumMissed() {
+        return numMissed;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac PassFailFE[K[KExam.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat PassFailActivity..[Kjava
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+/**
+ * This class holds a numeric score and determines whether the score is passing
+ * or failing.
+ */
+public class PassFailActivity extends GradedActivity {
+
+    private double minPassingScore; // Minimum passing score
+
+    /**
+     * The constructor sets the minimum passing score.
+     *
+     * @param mps The minimum passing score.
+     */
+    public PassFailActivity(double mps) {
+        minPassingScore = mps;
+    }
+
+    /**
+     * The getGrade method returns a letter grade determined from the score
+     * field. This method overrides the superclass method.
+     *
+     * @return The letter grade.
+     */
+    @Override
+    public char getGrade() {
+        char letterGrade;
+
+        if (super.getScore() >= minPassingScore) {
+            letterGrade = 'P';
+        } else {
+            letterGrade = 'F';
+        }
+
+        return letterGrade;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac PassFailE[KActivity.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat FinalExam.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+/**
+ * This class determines the grade for a final exam.
+ */
+public class FinalExam extends GradedActivity {
+
+    private int numQuestions;  // Number of questions
+    private double pointsEach; // Points for each question
+    private int numMissed;     // Questions missed
+
+    /**
+     * The constructor sets the number of questions on the exam and the number
+     * of questions missed.
+     *
+     * @param questions The number of questions.
+     * @param missed The number of questions missed.
+     */
+    public FinalExam(int questions, int missed) {
+        double numericScore;  // To hold a numeric score
+
+        // Set the numQuestions and numMissed fields.
+        numQuestions = questions;
+        numMissed = missed;
+
+        // Calculate the points for each question and
+        // the numeric score for this exam.
+        pointsEach = 100.0 / questions;
+        numericScore = 100.0 - (missed * pointsEach);
+
+        // Call the inherited setScore method to
+        // set the numeric score.
+        setScore(numericScore);
+    }
+
+    /**
+     * The getPointsEach method returns the number of points each question is
+     * worth.
+     *
+     * @return The value in the pointsEach field.
+     */
+    public double getPointsEach() {
+        return pointsEach;
+    }
+
+    /**
+     * The getNumMissed method returns the number of questions missed.
+     *
+     * @return The value in the numMissed field.
+     */
+    public int getNumMissed() {
+        return numMissed;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac FinalExam.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat TaskB.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+import java.util.Scanner;
+public class TaskB {
+    public static void main (String[] args) {
+        CourseGrades grades = new CourseGrades();
+        Scanner key = new Scanner(System.in);
+        GradedActivity lab = new GradedActivity();
+        System.out.print("Graded Activity score (100): ");
+        lab.setScore(key.nextDouble());
+        grades.setLab(lab);
+        System.out.print("Exam questions (total): ");
+        int pquestions = key.nextInt();
+        System.out.print("Exam questions (missed): ");
+        int pmissed = key.nextInt();
+        System.out.print("Exam questions (minimum for passing): ");
+        int pmin = key.nextInt();
+        PassFailExam exam = new PassFailExam(pquestions, pmissed, pmin);
+        grades.setPassFailExam(exam);
+        System.out.print("Grammar Points (30): ");
+        double grammar = key.nextDouble();
+        System.out.print("Spelling Points (20): ");
+        double spelling = key.nextDouble();
+        System.out.print("Correct Length Points (20): ");
+        double length = key.nextDouble();
+        System.out.print("Content Points (30): ");
+        double content = key.nextDouble();
+        Essay essay = new Essay();
+        essay.setScore(grammar, spelling, length, content);
+        essay.setScore(essay.getScore()); 
+        grades.setEssay(essay);
+        System.out.print("Questions (total): ");
+        int fquestions = key.nextInt();
+        System.out.print("Questions (missed): ");
+        int fmissed = key.nextInt();    
+        FinalExam finalexam = new FinalExam(fquestions, fmissed);
+        grades.setFinalExam(finalexam);
+        System.out.println(grades);
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Task.[KB.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java TaskB.[K
+Graded Activity score (100): 80
+Exam questions (total): 10
+Exam questions (missed): 2 3
+Exam questions (minimum for passing): 4
+Grammar Points (30): 30
+Spelling Points (20): 20
+Correct Length Points (20): 0
+Content Points (30): 0
+Questions (total): 100
+Questions (missed): 7 25
+Lab Grade: B
+Exam Grade: P
+Essay Grade: F
+Final Exam Grade: C
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Sun 12 Nov 2017 11:37:11 AM PST

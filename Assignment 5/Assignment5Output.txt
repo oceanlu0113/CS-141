@@ -1,0 +1,400 @@
+Script started on Tue 28 Nov 2017 09:59:39 PM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Game.java
+//Ocean Lu
+//CS 141
+//Assignment 5
+//11.29.17
+
+import java.util.Scanner;
+
+public class Game {
+
+    public static void main(String[] args) {
+        String yes = "yes";
+        double gameCount = 0;
+        double gameWins = 0;
+        while (yes.equals("yes")) {
+            Scanner keyboard = new Scanner(System.in);
+            Hand user = new Hand();
+            Hand computer = new Hand();
+            Deck deck = new Deck();
+            deck.createDeck();
+            deck.shuffle();
+            System.out.println("***********************************\n* Welcome to the Black Jack Table *\n***********************************");
+            user.addCard(deck.getDeck()[0], 0);
+            computer.addCard(deck.getDeck()[1], 0);
+            user.addCard(deck.getDeck()[2], 1);
+            computer.addCard(deck.getDeck()[3], 1);
+            if (user.getValue() == 21) {
+                System.out.println("Blackjack!\nYou win!");
+                gameCount++;
+                gameWins++;
+                break;
+            } else if (computer.getValue() == 21) {
+                System.out.println("Blackjack!\nThe dealer wins!");
+                gameCount++;
+                break;
+            }
+            int counter = 4;
+            int c = 2;
+            int games = 0;
+            while (games == 0) {
+                System.out.println(user);
+                System.out.print("\nDo you want to stand or hit: ");
+                String choice = keyboard.nextLine();
+                if (choice.equals("stand")) {
+                    if (user.getValue() < computer.getValue()) {
+                        System.out.println("Smaller than the dealer's hand. Dealer wins!");
+                        break;
+                    } else if (user.getValue() > computer.getValue()) {
+                        System.out.println("Bigger than the dealer's hand. You win!");
+                        gameWins++;
+                        break;
+                    }
+                } else if (choice.equals("hit")) {
+                    user.addCard(deck.getDeck()[counter], c);
+                    counter++;
+                    computer.addCard(deck.getDeck()[counter], c);
+                    counter++;
+                    c++;
+                    if (computer.blackjack()) {
+                        System.out.println("The dealer got blackjack! The dealer wins!");
+                        games++;
+                        break;
+                    }
+                    if (user.bust()) {
+                        System.out.println(user + "\nBust! The dealer wins!");
+                        games++;
+                        break;
+                    }
+                    if (computer.bust()) {
+                        System.out.println("The dealer busted! You win!");
+                    }
+                    if (user.blackjack()) {
+                        System.out.println(user + "\nBlackjack! You win!");
+                        games++;
+                        gameWins++;
+                        break;
+                    }
+                } else {
+                    try {
+                        throw new Exception();
+                    } catch (Exception e) {
+                        System.out.println("Incorrect input. System exit.");
+                        System.exit(0);
+                    }
+                }
+            }
+            gameCount++;
+            double percentage = gameWins / gameCount * 100;
+            System.out.printf("-----------------------------\nStatistics: \nnumber of games played: " + gameCount + "\nwins: %.1f%%\n-----------------------------\n", percentage);
+
+            System.out.print("Do you want to play again? (yes/no) ");
+            yes = keyboard.nextLine();
+        }
+        System.out.println("Bye Bye");
+    }
+}
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Game.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Hand.java
+//Ocean Lu
+//CS 141
+//Assignment 5
+//11.29.17
+
+public class Hand {
+
+    Card[] hand = new Card[52];
+
+    public Hand() {
+        for (int i = 0; i < 52; i++) {
+            hand[i] = new Card();
+        }
+    }
+
+    public Card[] getHand() {
+        return hand;
+    }
+
+    public void addCard(Card c, int turn) {
+        hand[turn] = c;
+    }
+
+    public Card getCard(int turn) {
+        return hand[turn];
+    }
+
+    public int getValue() {
+        int value = 0;
+        for (int i = 0; i < 52; i++) {
+            value += hand[i].getValue();
+        }
+        return value;
+    }
+
+    public void cardAce() {
+        boolean ace = false;
+        int counter = 0;
+        for (int i = 0; i < 52; i++) {
+            if (hand[i].getFace().equals("Ace")) {
+                ace = true;
+                counter = i;
+            }
+        }
+        if (getValue() > 21 && ace) {
+            hand[counter].changeValue(1);
+        }
+    }
+
+    public boolean blackjack() {
+        if (getValue() == 21) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean bust() {
+        cardAce();
+        if (getValue() > 21) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String toString() {
+        cardAce();
+        String temp = "";
+        int counter = 0;
+        for (int i = 0; i < 52; i++) {
+            if (hand[i].getValue() == 0) {
+                temp += "";
+            } else {
+                temp += hand[i] + "\n";
+                counter += hand[i].getValue();
+            }
+        }
+        return "Your hand is: \n" + temp + "<" + counter + " points>";
+    }
+}
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Cat[K[K[KHna[K[Kand.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Deck.java
+//Ocean Lu
+//CS 141
+//Assignment 5
+//11.29.17
+
+import java.util.Random;
+
+public class Deck {
+
+    Card[] cards = new Card[52];
+
+    public void createDeck() {
+        for (int suits = 0; suits < 4; suits++) {
+            for (int faces = 0; faces < 13; faces++) {
+                cards[faces+(13*suits)] = new Card(faces + 1, suits);
+            }
+        }
+    }
+
+    public Card drawCard(int n) {
+        return cards[n];
+    }
+
+    public Card[] getDeck() {
+        return cards;
+    }
+
+    public void shuffle() {
+        int index;
+        Card temp = new Card();
+        Random random = new Random();
+        for (int i = cards.length - 1; i > 0; i--) {
+            index = random.nextInt(i + 1);
+            temp = cards[index];
+            cards[index] = cards[i];
+            cards[i] = temp;
+        }
+    }
+    
+    public String toString() {
+        String temp = "";
+        for (int i = 0; i < 52; i++) {
+            temp += cards[i] + "\n";
+        }
+        return temp;
+    }
+}
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Deck.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m ja[K[Kcat Card.java
+//Ocean Lu
+//CS 141
+//Assignment 5
+//11.29.17
+
+public class Card {
+
+    private String face;
+    private String suit;
+    private String of;
+    private int value;
+
+    public Card() {
+        face = "";
+        suit = "";
+        of = "";
+    }
+
+    public Card(int f, int s) {
+        of = "of";
+        if (f == 1) {
+            face = "Ace";
+            value = 11;
+        } else if (f == 2) {
+            face = "Two";
+            value = f;
+        } else if (f == 3) {
+            face = "Three";
+            value = f;
+        } else if (f == 4) {
+            face = "Four";
+            value = f;
+        } else if (f == 5) {
+            face = "Five";
+            value = f;
+        } else if (f == 6) {
+            face = "Six";
+            value = f;
+        } else if (f == 7) {
+            face = "Seven";
+            value = f;
+        } else if (f == 8) {
+            face = "Eight";
+            value = f;
+        } else if (f == 9) {
+            face = "Nine";
+            value = f;
+        } else if (f == 10) {
+            face = "Ten";
+            value = f;
+        } else if (f == 11) {
+            face = "Jack";
+            value = 10;
+        } else if (f == 12) {
+            face = "Queen";
+            value = 10;
+        } else if (f == 13) {
+            face = "King";
+            value = 10;
+        }
+        if (s == 0) {
+            suit = "Spades";
+        } else if (s == 1) {
+            suit = "Hearts";
+        } else if (s == 2) {
+            suit = "Diamonds";
+        } else if (s == 3) {
+            suit = "Clubs";
+        }
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+    
+    public void changeValue(int v) {
+        value = v;
+    }
+
+    public String getFace() {
+        return face;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String toString() {
+        return face + " " + of + " " + suit;
+    }
+}
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Card.ava[K[K[Kjava
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Card.java[2Pcat[C[C[C[C[C[C[C[C[C[Cjavac Deck.java[2Pcat[C[C[C[C[C[C[C[C[C[Cjavac Hand.java[2Pcat[C[C[C[C[C[C[C[C[C[Cjavac Game.java[2Pcat[C[C[C[C[C[C[C[C[C[Cscript Assignment5Output.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15Pcat Game.java[2@javac[C[C[C[C[C[C[C[C[C[C[2Pcat Hand.java[2@javac[C[C[C[C[C[C[C[C[C[C[2Pcat Deck.java[2@javac[C[C[C[C[C[C[C[C[C[C[2Pcat Card.java[2@javac[C[C[C[C[C[C[C[C[C[C[Kjava Game
+***********************************
+* Welcome to the Black Jack Table *
+***********************************
+Your hand is: 
+Queen of Diamonds
+Three of Hearts
+<13 points>
+
+Do you want to stand or hit: hit
+Your hand is: 
+Queen of Diamonds
+Three of Hearts
+Jack of Spades
+<23 points>
+Bust! The dealer wins!
+-----------------------------
+Statistics: 
+number of games played: 1.0
+wins: 0.0%
+-----------------------------
+Do you want to play again? (yes/no) ys es
+***********************************
+* Welcome to the Black Jack Table *
+***********************************
+Your hand is: 
+Eight of Diamonds
+Five of Diamonds
+<13 points>
+
+Do you want to stand or hit: hit
+Your hand is: 
+Eight of Diamonds
+Five of Diamonds
+Three of Hearts
+<16 points>
+
+Do you want to stand or hit: hit
+The dealer busted! You win!
+Your hand is: 
+Eight of Diamonds
+Five of Diamonds
+Three of Hearts
+Two of Spades
+<18 points>
+
+Do you want to stand or hit: hit
+Your hand is: 
+Eight of Diamonds
+Five of Diamonds
+Three of Hearts
+Two of Spades
+Jack of Clubs
+<28 points>
+Bust! The dealer wins!
+-----------------------------
+Statistics: 
+number of games played: 2.0
+wins: 0.0%
+-----------------------------
+Do you want to play again? (yes/no) no  s
+Bye Bye
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac[K Game.[K
+***********************************
+* Welcome to the Black Jack Table *
+***********************************
+Your hand is: 
+Six of Clubs
+Five of Clubs
+<11 points>
+
+Do you want to stand or hit: s
+Incorrect input. System exit.
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Tue 28 Nov 2017 10:00:54 PM PST

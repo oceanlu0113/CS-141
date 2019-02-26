@@ -1,0 +1,307 @@
+Script started on Mon 06 Nov 2017 02:17:39 AM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat TaskC.java
+// Ocean Lu
+// CS14
+// Assignment 3
+// 11.06.17
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class TaskC {
+
+    public static void main(String[] args) {
+        ArrayList<Question> set = new ArrayList<Question>();
+        for (int i = 0; i < 10; i++) {
+            set.add(new Question());
+        }
+
+        Player one = new Player(1);
+        Player two = new Player(2);
+
+        set.get(0).setQuestion("How are you today?");
+        set.get(0).setPossibleAnswer("Good", 0);
+        set.get(0).setPossibleAnswer("Bad", 1);
+        set.get(0).setPossibleAnswer("Sad", 2);
+        set.get(0).setPossibleAnswer("Mad", 3);
+        set.get(0).setCorrectAnswerNum(2);
+
+        set.get(1).setQuestion("What's the fastest fish in the ocean?");
+        set.get(1).setPossibleAnswer("Snailfish", 0);
+        set.get(1).setPossibleAnswer("Swordfish", 1);
+        set.get(1).setPossibleAnswer("Sailfish", 2);
+        set.get(1).setPossibleAnswer("Tiger shark", 3);
+        set.get(1).setCorrectAnswerNum(2);
+
+        set.get(2).setQuestion("What is the world's largest ocean?");
+        set.get(2).setPossibleAnswer("Atlantic", 0);
+        set.get(2).setPossibleAnswer("Pacific", 1);
+        set.get(2).setPossibleAnswer("Artic", 2);
+        set.get(2).setPossibleAnswer("Me", 3);
+        set.get(2).setCorrectAnswerNum(1);
+
+        set.get(3).setQuestion("How long do bull shark pregnancies last for?");
+        set.get(3).setPossibleAnswer("18 years", 0);
+        set.get(3).setPossibleAnswer("5-6 months", 1);
+        set.get(3).setPossibleAnswer("1 year", 2);
+        set.get(3).setPossibleAnswer("10-11 months", 3);
+        set.get(3).setCorrectAnswerNum(3);
+
+        set.get(4).setQuestion("The ocean cover _______ of the Earth's surface.");
+        set.get(4).setPossibleAnswer("60%", 0);
+        set.get(4).setPossibleAnswer("70%", 1);
+        set.get(4).setPossibleAnswer("50%", 2);
+        set.get(4).setPossibleAnswer("100%", 3);
+        set.get(4).setCorrectAnswerNum(1);
+
+        set.get(5).setQuestion("How does water move around the world?");
+        set.get(5).setPossibleAnswer("Wind", 0);
+        set.get(5).setPossibleAnswer("Gravity", 1);
+        set.get(5).setPossibleAnswer("1 and 2", 2);
+        set.get(5).setPossibleAnswer("Water Benders", 3);
+        set.get(5).setCorrectAnswerNum(2);
+
+        set.get(6).setQuestion("Ocean water moves in which direction?");
+        set.get(6).setPossibleAnswer("North to South", 0);
+        set.get(6).setPossibleAnswer("South to North", 1);
+        set.get(6).setPossibleAnswer("Triangularly", 2);
+        set.get(6).setPossibleAnswer("Circularly", 3);
+        set.get(6).setCorrectAnswerNum(3);
+
+        set.get(7).setQuestion("What type of ocean water is more dense?");
+        set.get(7).setPossibleAnswer("Salt water (salty)", 0);
+        set.get(7).setPossibleAnswer("Polar water (cold)", 1);
+        set.get(7).setPossibleAnswer("Equator water (hot)", 2);
+        set.get(7).setPossibleAnswer("Water close to the shore", 3);
+        set.get(7).setCorrectAnswerNum(1);
+
+        set.get(8).setQuestion("What are basalts?");
+        set.get(8).setPossibleAnswer("Volcanic rocks on the ocean floor", 0);
+        set.get(8).setPossibleAnswer("The best kinds of salt", 1);
+        set.get(8).setPossibleAnswer("Volcanic eruptions under the water", 2);
+        set.get(8).setPossibleAnswer("Volcanic ash found in the ocean", 3);
+        set.get(8).setCorrectAnswerNum(0);
+
+        set.get(9).setQuestion("What are phytoplankton?");
+        set.get(9).setPossibleAnswer("A larger version of plankton", 0);
+        set.get(9).setPossibleAnswer("Organisms that eat plankton", 1);
+        set.get(9).setPossibleAnswer("Spongebob's friend", 2);
+        set.get(9).setPossibleAnswer("Microscopic algae", 3);
+        set.get(9).setCorrectAnswerNum(3);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Question " + (i + 1) + ": " + set.get(i).getQuestionText());
+            for (int j = 0; j < 4; j++) {
+                System.out.println((j + 1) + ". " + set.get(i).getPossibleAnswer(j));
+            }
+            if (i + 1 % 2 == 1) {
+                System.out.println("Player one's turn.");
+                one.chooseAnswer();
+                if (one.getCurrentAnswer() == set.get(i).getCorrectAnswerNumber()) {
+                    System.out.println("Correct. The right answer is option " + set.get(i).getCorrectAnswerNumber() + ": " + set.get(i).getCorrectAnswer());
+                    one.incrementPoints();
+                } else {
+                    System.out.println("Incorrect. The right answer is option " + set.get(i).getCorrectAnswerNumber() + ": " + set.get(i).getCorrectAnswer());
+                }
+            } else {
+                System.out.println("Player two's turn.");
+                two.chooseAnswer();
+                if (two.getCurrentAnswer() == set.get(i).getCorrectAnswerNumber()) {
+                    System.out.println("Correct. The right answer is option " + set.get(i).getCorrectAnswerNumber() + ": " + set.get(i).getCorrectAnswer());
+                    two.incrementPoints();
+                } else {
+                    System.out.println("Incorrect. The right answer is option " + set.get(i).getCorrectAnswerNumber() + ": " + set.get(i).getCorrectAnswer());
+                }
+            }
+        }
+        System.out.println("Player one points: " + one.getPoints());
+        System.out.println("Player two points: " + two.getPoints());
+        if (one.getPoints() > two.getPoints()) {
+            System.out.println("Player one wins.");
+        } else if (one.getPoints() < two.getPoints()) {
+            System.out.println("Player two wins.");
+        } else if (one.getPoints() == two.getPoints()) {
+            System.out.println("Tied.");
+        }
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac TaskC.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Player.java
+// Ocean Lu
+// CS14
+// Assignment 3
+// 11.06.17
+
+import java.util.Scanner;
+
+public class Player {
+    private int playerNumber;
+    private int points;
+    private int currentAnswer;
+    
+    public Player(int playerNum) {
+        playerNumber = playerNum;
+    }
+    
+    public void chooseAnswer() {
+        System.out.print("Please enter a number of choice: ");
+        Scanner keyboard = new Scanner (System.in);
+        currentAnswer = keyboard.nextInt();
+    }
+    
+    public int getCurrentAnswer() {
+        return currentAnswer;
+    }
+    
+    public void incrementPoints() {
+        points++;
+    }
+    
+    public int getPoints() {
+        return points;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Plaey[K[Kyer.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Question.java
+// Ocean Lu
+// CS14
+// Assignment 3
+// 11.06.17
+
+import java.util.Scanner;
+
+public class Question {
+
+    private final int NUM_ANSWERS = 4;
+    private String questionText;
+    private String[] possibleAnswers = new String[NUM_ANSWERS];
+    private int correctAnswer;
+
+    public Question() {
+        this.questionText = questionText;
+        this.correctAnswer = correctAnswer;
+        this.possibleAnswers = possibleAnswers;
+        
+    }
+
+    public void setQuestion(String question) {
+        questionText = question;
+    }
+
+    public void setPossibleAnswer(String text, int num) {
+        possibleAnswers[num] = text;
+        correctAnswer = num;
+    }
+
+    public void setCorrectAnswerNum(int num) {
+        correctAnswer = num;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public String getPossibleAnswer(int num) {
+        return possibleAnswers[num];
+    }
+
+    public int getCorrectAnswerNumber() {
+        return correctAnswer + 1;
+    }
+
+    public String getCorrectAnswer() {
+        return possibleAnswers[correctAnswer];
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Question.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java TaskC.java[K[K[K[K[K
+Question 1: How are you today?
+1. Good
+2. Bad
+3. Sad
+4. Mad
+Player one's turn.
+Please enter a number of choice: 3
+Correct. The right answer is option 3: Sad
+Question 2: What's the fastest fish in the ocean?
+1. Snailfish
+2. Swordfish
+3. Sailfish
+4. Tiger shark
+Player two's turn.
+Please enter a number of choice: 1
+Incorrect. The right answer is option 3: Sailfish
+Question 3: What is the world's largest ocean?
+1. Atlantic
+2. Pacific
+3. Artic
+4. Me
+Player two's turn.
+Please enter a number of choice: 2
+Correct. The right answer is option 2: Pacific
+Question 4: How long do bull shark pregnancies last for?
+1. 18 years
+2. 5-6 months
+3. 1 year
+4. 10-11 months
+Player two's turn.
+Please enter a number of choice: 3
+Incorrect. The right answer is option 4: 10-11 months
+Question 5: The ocean cover _______ of the Earth's surface.
+1. 60%
+2. 70%
+3. 50%
+4. 100%
+Player two's turn.
+Please enter a number of choice: 4
+Incorrect. The right answer is option 2: 70%
+Question 6: How does water move around the world?
+1. Wind
+2. Gravity
+3. 1 and 2
+4. Water Benders
+Player two's turn.
+Please enter a number of choice: 3
+Correct. The right answer is option 3: 1 and 2
+Question 7: Ocean water moves in which direction?
+1. North to South
+2. South to North
+3. Triangularly
+4. Circularly
+Player two's turn.
+Please enter a number of choice: 2
+Incorrect. The right answer is option 4: Circularly
+Question 8: What type of ocean water is more dense?
+1. Salt water (salty)
+2. Polar water (cold)
+3. Equator water (hot)
+4. Water close to the shore
+Player two's turn.
+Please enter a number of choice: 1
+Incorrect. The right answer is option 2: Polar water (cold)
+Question 9: What are basalts?
+1. Volcanic rocks on the ocean floor
+2. The best kinds of salt
+3. Volcanic eruptions under the water
+4. Volcanic ash found in the ocean
+Player two's turn.
+Please enter a number of choice: 2
+Incorrect. The right answer is option 1: Volcanic rocks on the ocean floor
+Question 10: What are phytoplankton?
+1. A larger version of plankton
+2. Organisms that eat plankton
+3. Spongebob's friend
+4. Microscopic algae
+Player two's turn.
+Please enter a number of choice: 1 3 4
+Correct. The right answer is option 4: Microscopic algae
+Player one points: 1
+Player two points: 3
+Player two wins.
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Mon 06 Nov 2017 02:18:43 AM PST

@@ -1,0 +1,149 @@
+Script started on Sun 12 Nov 2017 11:33:18 AM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat GradedActivity.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+/**
+ * A class that holds a grade for a graded activity.
+ */
+public class GradedActivity {
+
+    private double score;  // Numeric score
+
+    /**
+     * The setScore method sets the score field.
+     *
+     * @param s The value to store in score.
+     */
+    public void setScore(double s) {
+        score = s;
+    }
+
+    /**
+     * The getScore method returns the score.
+     *
+     * @return The value stored in the score field.
+     */
+    public double getScore() {
+        return score;
+    }
+
+    /**
+     * The getGrade method returns a letter grade determined from the score
+     * field.
+     *
+     * @return The letter grade.
+     */
+    public char getGrade() {
+        char letterGrade;
+
+        if (score >= 90) {
+            letterGrade = 'A';
+        } else if (score >= 80) {
+            letterGrade = 'B';
+        } else if (score >= 70) {
+            letterGrade = 'C';
+        } else if (score >= 60) {
+            letterGrade = 'D';
+        } else {
+            letterGrade = 'F';
+        }
+
+        return letterGrade;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac GradedActivity..[Kav[K[Kjava
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Essay.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+public class Essay extends GradedActivity {
+
+    private double grammar;
+    private double spelling;
+    private double correctLength;
+    private double content;
+
+    public void setScore(double gr, double sp, double len, double cnt) {
+        grammar = gr;
+        spelling = sp;
+        correctLength = len;
+        content = cnt;
+    }
+
+    public void setGrammar(double g) {
+        grammar = g;
+    }
+
+    public void setSpelling(double s) {
+        spelling = s;
+    }
+
+    public void setCorrectLength(double c) {
+        correctLength = c;
+    }
+
+    public void setContent(double c) {
+        content = c;
+    }
+
+    public double getGrammar() {
+        return grammar;
+    }
+
+    public double getSpelling() {
+        return spelling;
+    }
+
+    public double getCorrectLength() {
+        return correctLength;
+    }
+
+    public double getScore() {
+        return grammar + spelling + correctLength + content;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Essay.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat TaskA.java
+//Ocean Lu
+//CS141
+//Assignment 4
+//11.15.17 
+
+import java.util.Scanner;
+public class TaskA {
+    public static void main (String[] args) {
+        Scanner key = new Scanner(System.in);
+        System.out.print("Grammar Points (30): ");
+        double grammar = key.nextDouble();
+        System.out.print("Spelling Points (20): ");
+        double spelling = key.nextDouble();
+        System.out.print("Correct Length Points (20): ");
+        double length = key.nextDouble();
+        System.out.print("Content Points (30): ");
+        double content = key.nextDouble();
+        Essay essay = new Essay();
+        essay.setScore(grammar, spelling, length, content);
+        essay.setScore(essay.getScore());
+        System.out.println("Grammar Essay Score: " + essay.getScore() + "\nGrammar Essay Grade: " + essay.getGrade());
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Task.[KA.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java TaskA
+Grammar Points (30): 30
+Spelling Points (20): 20
+Correct Length Points (20): 0
+Content Points (30): 30
+Grammar Essay Score: 80.0
+Grammar Essay Grade: B
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Sun 12 Nov 2017 11:34:10 AM PST

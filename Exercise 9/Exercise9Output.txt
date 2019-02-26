@@ -1,0 +1,108 @@
+Script started on Wed 22 Nov 2017 04:24:21 PM PST
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Ship.java
+//Ocean Lu
+//CS141
+//Exercise 9
+//11.27.17
+
+public class Ship {
+
+    private String name;
+    private String yearBuilt;
+
+    public Ship(String n, String y) {
+        name = n;
+        yearBuilt = y;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getYearBuilt() {
+        return yearBuilt;
+    }
+
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setYearBuilt(String y) {
+        yearBuilt = y;
+    }
+
+    public String toString() {
+        return "Ship Name: " + name + "\nYear Built: " + yearBuilt;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Ship.av[K[Kjava
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat CruiseShip.java
+//Ocean Lu
+//CS141
+//Exercise 9
+//11.27.17
+
+public class CruiseShip extends Ship {
+
+    private int passengers;
+
+    public CruiseShip(String n, String y, int p) {
+        super(n, y);
+        passengers = p;
+    }
+
+    public int getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(int p) {
+        passengers = p;
+    }
+
+    public void setAll(String n, String y, int p) {
+        super.setName(n);
+        super.setYearBuilt(y);
+        passengers = p;
+    }
+
+    public String toString() {
+        return "Ship Name: " + super.getName() + "\nMaximum Passengers: " + passengers;
+    }
+
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac CruiseShip.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat Demo.java
+//Ocean Lu
+//CS141
+//Exercise 9
+//11.27.17
+
+public class Demo {
+        public static void main(String[] args) {
+            Ship[] ships = new Ship[4];
+            ships[0] = new Ship("Bombay", "1990");
+            ships[1] = new Ship("Bengal", "1991");
+            ships[2] = new CruiseShip("Siamese", "1992", 150);
+            ships[3] = new CruiseShip("Seal Point", "1993", 200);
+            for (int i = 0; i < 4; i++) {
+                System.out.println(ships[i]);
+            }
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac Demo.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java Demo
+Ship Name: Bombay
+Year Built: 1990
+Ship Name: Bengal
+Year Built: 1991
+Ship Name: Siamese
+Maximum Passengers: 150
+Ship Name: Seal Point
+Maximum Passengers: 200
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Wed 22 Nov 2017 04:25:04 PM PST

@@ -1,0 +1,421 @@
+Script started on Wed 18 Oct 2017 08:25:42 PM PDT
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat ParkingMeter.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+public class ParkingMeter {
+
+    private int minutes;
+
+    public ParkingMeter(int i) {
+        minutes = i;
+    }
+    
+    public int getMinutes() {
+        return minutes;
+    }
+    
+    public void setMinutes(int m) {
+        minutes = m;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac c[KParkingm[KMeter.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat ParkedCar.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+
+public class ParkedCar {
+
+    private String make;
+    private String model;
+    private String color;
+    private String licenseNumber;
+    private int minutesParked;
+
+    public ParkedCar(String mk, String mod, String col, String lic, int 
+min) {
+        make = mk;
+        model = mod;
+        color = col;
+        licenseNumber = lic;
+        minutesParked = min;
+    }
+
+    public ParkedCar(ParkedCar car2) {
+        make = car2.getMake();
+        model = car2.getModel();
+        color = car2.getColor();
+        licenseNumber = car2.getLicenseNumber();
+        minutesParked = car2.getMinutesParked();
+    }
+
+    public void setMake(String mk) {
+        make = mk;
+    }
+
+    public void setModel(String mod) {
+        model = mod;
+    }
+
+    public void setColor(String col) {
+        color = col;
+    }
+
+    public void setLicenseNumber(String lic) {
+        licenseNumber = lic;
+    }
+
+    public void setMinutesParked(int min) {
+        minutesParked = min;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public int getMinutesParked() {
+        return minutesParked;
+    }
+
+    public String toString() {
+        return "Make: " + make + "\nMode: " + model + "\nColor: " + color 
++ "\nLicense Number: " + licenseNumber + "\nMinutes Parked: " + 
+minutesParked;
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac ParkedCar.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat PoliceOfficer.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+
+public class PoliceOfficer {
+
+    private String name;
+    private String badgeNumber;
+
+    public PoliceOfficer(String n, String bn) {
+        name = n;
+        badgeNumber = bn;
+    }
+
+    public PoliceOfficer(PoliceOfficer officer2) {
+        name = officer2.getName();
+        badgeNumber = officer2.getBadgeNumber();
+    }
+
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setBadgeNumber(String bn) {
+        badgeNumber = bn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBadgeNumber() {
+        return badgeNumber;
+    }
+
+    public ParkingTicket patrol(ParkedCar car, ParkingMeter meter) {
+        if (meter.getMinutes() < car.getMinutesParked()) {
+            int i = car.getMinutesParked() - meter.getMinutes();
+            ParkingTicket ticket = new ParkingTicket(car, this, i);
+            return ticket;
+        } else {
+            return null;
+        }
+    }
+
+    public String toString() {
+        return "Name: " + name + "\nBadge Number: " + badgeNumber;
+    }
+}
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac PoliceOfficer.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat ParkingTicket.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+
+public class ParkingTicket {
+
+    private ParkedCar car;
+    private PoliceOfficer officer;
+    private int minutes;
+    private double fine;
+    private double BASE_FINE = 35.0;
+    private double HOURLY_FINE = 10.0;
+
+    public ParkingTicket(ParkedCar aCar, PoliceOfficer anOfficer, int min) {
+        car = aCar;
+        officer = anOfficer;
+        minutes = min;
+    }
+
+    public ParkingTicket(ParkingTicket ticket2) {
+        car = ticket2.getCar();
+        officer = ticket2.getOfficer();
+        minutes = ticket2.getMinutes();
+        fine = ticket2.getFine();
+    }
+
+    public void calculateFine() {
+        int i = minutes / 60;
+        fine = BASE_FINE + (HOURLY_FINE * i);
+    }
+
+    public void setCar(ParkedCar c) {
+        car = c;
+    }
+
+    public void setOfficer(PoliceOfficer o) {
+        officer = o;
+    }
+
+    public void setMinutes(int m) {
+        minutes = m;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public ParkedCar getCar() {
+        return car;
+    }
+
+    public PoliceOfficer getOfficer() {
+        return officer;
+    }
+
+    public double getFine() {
+        calculateFine();
+        return fine;
+    }
+
+    public String toString() {
+        return "Car Data: \n" + car.toString() + "\n\nOfficer Data: \n" + officer.toString() + "\n\nMinutes Illegally Parked: " + getMinutes() + "\nFine: $" + getFine();
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat ParkingTicket.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+
+public class ParkingTicket {
+
+    private ParkedCar car;
+    private PoliceOfficer officer;
+    private int minutes;
+    private double fine;
+    private double BASE_FINE = 35.0;
+    private double HOURLY_FINE = 10.0;
+
+    public ParkingTicket(ParkedCar aCar, PoliceOfficer anOfficer, int min) {
+        car = aCar;
+        officer = anOfficer;
+        minutes = min;
+    }
+
+    public ParkingTicket(ParkingTicket ticket2) {
+        car = ticket2.getCar();
+        officer = ticket2.getOfficer();
+        minutes = ticket2.getMinutes();
+        fine = ticket2.getFine();
+    }
+
+    public void calculateFine() {
+        int i = minutes / 60;
+        fine = BASE_FINE + (HOURLY_FINE * i);
+    }
+
+    public void setCar(ParkedCar c) {
+        car = c;
+    }
+
+    public void setOfficer(PoliceOfficer o) {
+        officer = o;
+    }
+
+    public void setMinutes(int m) {
+        minutes = m;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public ParkedCar getCar() {
+        return car;
+    }
+
+    public PoliceOfficer getOfficer() {
+        return officer;
+    }
+
+    public double getFine() {
+        calculateFine();
+        return fine;
+    }
+
+    public String toString() {
+        return "Car Data: \n" + car.toString() + "\n\nOfficer Data: \n" + officer.toString() + "\n\nMinutes Illegally Parked: " + getMinutes() + "\nFine: $" + getFine();
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac ParkingTicekt[K[K[Kket.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m cat ParkingTicketDemo.java
+//Ocean Lu
+//CS141
+//Assignment 2
+//10.23.17
+
+public class ParkingTicketDemo {
+
+    public static void main(String[] args) {
+        System.out.println("\n... set minutes purchased to 60, and");
+        System.out.println(" parked for 125 minutes...");
+        // Create a ParkedCar object.
+        // The car was parked for 125 minutes.
+        ParkedCar car = new ParkedCar("Volkswagen", "2002", "Red", "3RHZ147", 125);
+
+        // Create a ParkingMeter object. 60 minutes were purchased.
+        ParkingMeter meter = new ParkingMeter(60);
+
+        // Create a PoliceOfficer object.
+        PoliceOfficer officer = new PoliceOfficer("Joe Friday", "4788");
+
+        // Let the officer patrol.
+        ParkingTicket ticket = officer.patrol(car, meter);
+
+        // Did the officer issue a ticket?
+        if (ticket != null) {
+            System.out.println(ticket);
+        } else {
+            System.out.println("No crimes committed!");
+        }
+        //...
+        // Test case 2: change minutes to 60
+        System.out.println("\n... change minutes parked to 60, and");
+        car.setMinutesParked(60);
+        ticket = officer.patrol(car, meter);
+        if (ticket != null) {
+            System.out.println(ticket);
+        } else {
+            System.out.println("No crimes committed!");
+        }
+
+        //Test case 3: change minutes to 61
+        System.out.println("\n... change minutes parked to 61, and");
+        car.setMinutesParked(61);
+        ticket = officer.patrol(car, meter);
+        if (ticket != null) {
+            System.out.println(ticket);
+        } else {
+            System.out.println("No crimes committed!");
+        }
+
+        //Test case 4: change car model to 2010
+        System.out.println("\n... change car model to 2010, and");
+        car.setModel("2010");
+        ticket = officer.patrol(car, meter);
+        if (ticket != null) {
+            System.out.println(ticket);
+        } else {
+            System.out.println("No crimes committed!");
+        }
+
+        //Test case 5: change minutes purchased to 70
+        System.out.println("\n... change minutes purchased to 70, and");
+        meter.setMinutes(70);
+        ticket = officer.patrol(car, meter);
+        if (ticket != null) {
+            System.out.println(ticket);
+        } else {
+            System.out.println("No crimes committed!");
+        }
+    }
+}
+
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m javac ParkingDemo.[K[K[K[K[KTicket.[KDemo.java
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m java ParkingTik[KcketDemo
+
+... set minutes purchased to 60, and
+ parked for 125 minutes...
+Car Data: 
+Make: Volkswagen
+Mode: 2002
+Color: Red
+License Number: 3RHZ147
+Minutes Parked: 125
+
+Officer Data: 
+Name: Joe Friday
+Badge Number: 4788
+
+Minutes Illegally Parked: 65
+Fine: $45.0
+
+... change minutes parked to 60, and
+No crimes committed!
+
+... change minutes parked to 61, and
+Car Data: 
+Make: Volkswagen
+Mode: 2002
+Color: Red
+License Number: 3RHZ147
+Minutes Parked: 61
+
+Officer Data: 
+Name: Joe Friday
+Badge Number: 4788
+
+Minutes Illegally Parked: 1
+Fine: $35.0
+
+... change car model to 2010, and
+Car Data: 
+Make: Volkswagen
+Mode: 2010
+Color: Red
+License Number: 3RHZ147
+Minutes Parked: 61
+
+Officer Data: 
+Name: Joe Friday
+Badge Number: 4788
+
+Minutes Illegally Parked: 1
+Fine: $35.0
+
+... change minutes purchased to 70, and
+No crimes committed!
+]0;oslu@costello:~[01;32moslu@costello[01;34m ~ $[00m exit
+exit
+
+Script done on Wed 18 Oct 2017 08:27:39 PM PDT
